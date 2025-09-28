@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Raíz Local — Modelo de negocio inclusivo</title>
+  <meta name="description" content="Raíz Local: puente justo entre pequeños agricultores colombianos y consumidores urbanos. Pago justo, frescura y transparencia." />
+  <style>
+    /* Reset + base */
+    :root{
+      --bg:#ffffff; --fg:#0b2a1a; --accent:#2e8b57; --muted:#5a6a62;
+      --focus: 3px solid #ffbf47;
+      --maxw:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background:var(--bg); color:var(--fg); line-height:1.45;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:focus{outline:var(--focus); outline-offset:3px}
+    header,nav,main,footer,section{display:block}
+    .container{max-width:var(--maxw);margin:0 auto;padding:1rem}
+    /* Skip link */
+    .skip{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip:focus{position:static;width:auto;height:auto;padding:.5rem;background:#fff;border:1px solid #ccc}
+    /* Header */
+    header{background:linear-gradient(180deg,#eaf6ef,transparent);border-bottom:1px solid #e6f0ea}
+    .brand{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem}
+    .logo{width:56px;height:56px;display:inline-grid;place-items:center;border-radius:8px;background:linear-gradient(180deg,#dff3e6,#bfe7cc)}
+    .nav{display:flex;gap:.5rem;align-items:center;margin-left:auto}
+    nav ul{display:flex;gap:.25rem;list-style:none;padding:0;margin:0}
+    nav a{padding:.5rem .65rem;border-radius:6px}
+    nav a:focus{outline:var(--focus)}
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr;gap:1rem;align-items:center;padding:1.25rem}
+    .hero-inner{display:flex;flex-direction:column;gap:.75rem}
+    h1{font-size:1.6rem;margin:.25rem 0}
+    p.lead{margin:0;color:var(--muted)}
+    .cta{display:inline-block;padding:.6rem 1rem;border-radius:8px;background:var(--accent);color:#fff}
+    .cta:focus{outline:var(--focus)}
+    /* Cards & sections */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+    .card{background:#fff;border:1px solid #e6eee6;padding:1rem;border-radius:8px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+    .stat{font-weight:700;font-size:1.25rem}
+    .product{display:flex;gap:.75rem;align-items:center}
+    .thumb{width:96px;height:72px;border-radius:6px;background:linear-gradient(180deg,#f6fbf6,#eef8ee);display:grid;place-items:center;font-size:.75rem;color:var(--muted);text-align:center;padding:.5rem}
+    /* Accessible focus visible */
+    :focus{outline-offset:3px}
+    /* Footer */
+    footer{padding:1rem;background:#f6f9f6;border-top:1px solid #e6f0ea;margin-top:1.5rem}
+    /* Responsive */
+    @media(min-width:768px){
+      .hero{grid-template-columns:1fr 360px}
+      h1{font-size:2rem}
+    }
+    /* High-contrast mode (toggle adds class .hc on body) */
+    body.hc{--bg:#000;--fg:#fff;--accent:#ffd24d}
+    body.hc a{color:var(--accent)}
+    /* focus-visible only for keyboard users */
+    :focus:not(:focus-visible){outline:none}
+    /* Simple form styles */
+    form label{display:block;font-size:.9rem;margin-bottom:.25rem}
+    input,textarea,select,button{font:inherit}
+    input,textarea,select{width:100%;padding:.5rem;border:1px solid #cfd9d3;border-radius:6px}
+    button{padding:.6rem .9rem;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+    button[aria-pressed="true"]{box-shadow:0 0 0 4px rgba(46,139,87,.12)}
+    /* Visible focus for keyboard nav */
+    :focus{box-shadow:0 0 0 3px rgba(46,139,87,.15)}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Saltar al contenido principal</a>
+
+  <header role="banner">
+    <div class="container brand" >
+      <div class="logo" aria-hidden="true">
+        <!-- simple svg logo -->
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+          <path d="M4 20c4-6 8-8 12-12 1 5-3 11-8 12-2 0-3 0-4 0z" fill="#2e8b57"/>
+          <circle cx="6" cy="14" r="2" fill="#ffd24d"/>
+        </svg>
+      </div>
+      <div>
+        <strong>Raíz Local</strong><div style="font-size:.85rem;color:var(--muted)">Puente justo entre campo y ciudad</div>
+      </div>
+
+      <nav class="nav" role="navigation" aria-label="Menú principal">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#quienes">Quiénes somos</a></li>
+          <li><a href="#impacto">Nuestro impacto</a></li>
+          <li><a href="#productos">Productos</a></li>
+          <li><a href="#suscripciones">Suscríbete</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div style="margin-left:1rem;display:flex;gap:.5rem;align-items:center">
+        <button id="hcToggle" aria-pressed="false" title="Alternar alto contraste">Alto contraste</button>
+        <button id="aumentar" title="Aumentar tamaño de letra">A+</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section id="inicio" class="hero container" aria-labelledby="titulo-hero">
+      <div class="hero-inner">
+        <h1 id="titulo-hero">Raíz Local — productos frescos, trato justo</h1>
+        <p class="lead">Empoderamos a pequeños agricultores en Colombia para que reciban un pago justo, reduciendo intermediarios y desperdicio. Entrega en 24–48 h en áreas urbanas.</p>
+        <p>
+          <a class="cta" href="#suscripciones">Suscríbete a una cesta</a>
+          <a style="margin-left:.5rem" href="#quienes">Conoce más</a>
+        </p>
+        <div class="grid" aria-hidden="false" style="margin-top:1rem">
+          <div class="card" role="article" aria-labelledby="stat1">
+            <div id="stat1" class="stat">+40%</div>
+            <div>Ingreso promedio extra para agricultores (al eliminar intermediarios)</div>
+          </div>
+          <div class="card" role="article" aria-labelledby="stat2">
+            <div id="stat2" class="stat">24–48h</div>
+            <div>Tiempo típico desde cosecha hasta entrega</div>
+          </div>
+          <div class="card" role="article" aria-labelledby="stat3">
+            <div id="stat3" class="stat">Fondo rotatorio</div>
+            <div>Pre-financiación y apoyo técnico para insumos</div>
+          </div>
+        </div>
+      </div>
+      <div aria-hidden="true" style="padding:1rem">
+        <!-- placeholder image (SVG) with alt text provided separately for accessibility -->
+        <svg role="img" aria-label="Agricultor cargando canasta de verduras" width="320" height="220" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100%" height="100%" rx="12" fill="#f6fbf6"/>
+          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6b7a6f">Imagen: agricultor - alt incluida</text>
+        </svg>
+      </div>
+    </section>
+
+    <section id="quienes" class="container" aria-labelledby="h-quienes">
+      <h2 id="h-quienes">Quiénes somos</h2>
+      <p>Somos una iniciativa que empodera económicamente a pequeños agricultores en Colombia, garantizándoles pago justo y acceso a mercados urbanos. (Misión / visión resumida de tu Actividad 1).</p>
+
+      <div class="grid" style="margin-top:1rem">
+        <div class="card">
+          <h3>Para el agricultor</h3>
+          <ul>
+            <li>Pago justo y directo — hasta 40% más.</li>
+            <li>Capacitación y apoyo técnico.</li>
+            <li>Pre-financiación vía fondo rotatorio.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Para el consumidor</h3>
+          <ul>
+            <li>Frescura y calidad (24–48 h).</li>
+            <li>Transparencia y trazabilidad.</li>
+            <li>Impacto social medible.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="impacto" class="container" aria-labelledby="h-impacto">
+      <h2 id="h-impacto">Nuestro impacto</h2>
+      <p>Historias reales y métricas claras: ingresos incrementados, reducción de desperdicio y fortalecimiento comunitario.</p>
+
+      <div class="grid" style="margin-top:1rem">
+        <article class="card" aria-labelledby="story1">
+          <h3 id="story1">Historia: María — Cundinamarca</h3>
+          <p class="muted">"Con Raíz Local ahora vendo directo y cubro los gastos escolares de mis hijos."</p>
+        </article>
+        <article class="card" aria-labelledby="story2">
+          <h3 id="story2">Escalabilidad</h3>
+          <p>Comenzamos en la sabana de Bogotá con 50 agricultores; la meta es +2000 y expansión regional. (Fases de crecimiento: Piloto → Expansión → Escala).</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="productos" class="container" aria-labelledby="h-productos">
+      <h2 id="h-productos">Productos</h2>
+      <p>Productos de temporada y línea de valor agregado: mermeladas, salsas, deshidratados.</p>
+
+      <div class="grid" style="margin-top:1rem">
+        <div class="card product" role="listitem">
+          <div class="thumb" aria-hidden="true">Tomate</div>
+          <div>
+            <strong>Tomate orgánico</strong>
+            <div class="muted">Entregado en 24–48 h. <span style="display:block">Proveniente de Cundinamarca.</span></div>
+          </div>
+        </div>
+
+        <div class="card product" role="listitem">
+          <div class="thumb" aria-hidden="true">Lechuga</div>
+          <div>
+            <strong>Lechuga fresca</strong>
+            <div class="muted">Empaque ecológico y trazabilidad completa.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="suscripciones" class="container" aria-labelledby="h-suscripciones">
+      <h2 id="h-suscripciones">Suscripciones — Cesta Consciente</h2>
+      <p>Planes semanales o mensuales que aseguran predictibilidad para el agricultor y descuentos para el consumidor.</p>
+
+      <div class="grid" style="margin-top:1rem">
+        <div class="card">
+          <h3>Plan Semanal</h3>
+          <p>Entrega semanal de productos de temporada. Ideal para familias.</p>
+          <button onclick="alert('Demo: Suscripción semanal (formulario real detrás)')">Suscribirme</button>
+        </div>
+        <div class="card">
+          <h3>Plan Mensual</h3>
+          <p>Canasta más grande, entrega cada dos semanas, ahorro por volumen.</p>
+          <button onclick="alert('Demo: Suscripción mensual (formulario real detrás)')">Suscribirme</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="container" aria-labelledby="h-contacto">
+      <h2 id="h-contacto">Contacto</h2>
+      <p>Escríbenos — accesible y claro.</p>
+
+      <form id="contactForm" class="card" aria-describedby="contactHelp" novalidate>
+        <div id="contactHelp" style="font-size:.9rem;margin-bottom:.5rem;color:var(--muted)">Responderemos en 48 horas hábiles.</div>
+
+        <label for="name">Nombre</label>
+        <input id="name" name="name" type="text" required aria-required="true" />
+
+        <label for="email">Correo electrónico</label>
+        <input id="email" name="email" type="email" required aria-required="true" />
+
+        <label for="role">¿Eres?</label>
+        <select id="role" name="role" aria-label="¿Eres?">
+          <option value="">Selecciona...</option>
+          <option value="agricultor">Agricultor</option>
+          <option value="consumidor">Consumidor</option>
+          <option value="empresa">Empresa</option>
+        </select>
+
+        <label for="message">Mensaje</label>
+        <textarea id="message" name="message" rows="4"></textarea>
+
+        <div style="display:flex;gap:.5rem;margin-top:.5rem">
+          <button type="submit">Enviar</button>
+          <button type="reset" style="background:#eee;color:#222">Limpiar</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;justify-content:space-between">
+        <div>© Raíz Local — Modelo inclusivo</div>
+        <div style="font-size:.9rem;color:var(--muted)">Diseño accesible — aplicación de la metodología POUR.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Alto contraste toggle (mejor para usuarios con baja visión)
+    const hcBtn = document.getElementById('hcToggle');
+    hcBtn.addEventListener('click', () => {
+      const isHC = document.body.classList.toggle('hc');
+      hcBtn.setAttribute('aria-pressed', String(isHC));
+      hcBtn.focus();
+    });
+
+    // Aumentar tamaño de letra (simple)
+    const aBtn = document.getElementById('aumentar');
+    let size = 100;
+    aBtn.addEventListener('click', () => {
+      size = Math.min(130, size + 10);
+      document.documentElement.style.fontSize = size + '%';
+      aBtn.focus();
+    });
+
+    // Accessible form handling (demo)
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      // Validación simple
+      const name = this.name.value.trim(), email = this.email.value.trim();
+      if(!name || !email){ alert('Por favor completa Nombre y Correo.'); this.name.focus(); return; }
+      // Simular envío: en una versión real aquí harías fetch a backend
+      alert('Gracias — tu mensaje ha sido enviado (demo).');
+      this.reset();
+    });
+
+    // Keyboard shortcut: "h" abre sección inicio (ejemplo de operable)
+    document.addEventListener('keyup', function(e){
+      if(e.key === 'h' || e.key === 'H'){
+        location.hash = '#inicio';
+        document.getElementById('titulo-hero').focus();
+      }
+    });
+
+    // Ensure focus outline visible when navigating by keyboard:
+    (function(){
+      const root = document.documentElement;
+      function handleFirstTab(e){
+        if(e.key === 'Tab'){ root.classList.add('user-is-tabbing'); window.removeEventListener('keydown', handleFirstTab); }
+      }
+      window.addEventListener('keydown', handleFirstTab);
+    })();
+  </script>
+</body>
+</html>
